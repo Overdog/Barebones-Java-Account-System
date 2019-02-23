@@ -9,7 +9,7 @@ Installation:
 
 1. Install the source code and insert it into your source folder.
 2. In your main method, make two input strings (However you want.), and put the following method when the user puts in the info and is ready.
-Login.login(<string1>, <string2>);
+Login.login(string1, string2);
 
 Then, the login method will check the MySQL database to see if the username and password are valid, and then is sent a message in the output stream. You can of course change this!
 
