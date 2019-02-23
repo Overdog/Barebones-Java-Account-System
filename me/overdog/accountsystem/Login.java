@@ -30,14 +30,16 @@ import me.overdog.accountsystem.mysql.MySQL;
  * Thank you for using the code! :P
  */
 public class Login {
-	
+	public static String usernameRow = "username";
+	public static String passwordRow = "password";
+	public static String tableName = "users";
     public static void login(String username, String password) {                                              
 
         Connection connection;
         PreparedStatement ps;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://" + MySQL.Host + ":3306/" + MySQL.DatabaseName, MySQL.Username, MySQL.Password);
-            ps = connection.prepareStatement("SELECT `username`, `password` FROM `users` WHERE `username` = ? AND `password` = ?");
+            ps = connection.prepareStatement("SELECT `" + usernameRow + "`, `" + passwordRow + "` FROM `" + tableName + "` WHERE `" + usernameRow + "` = ? AND `" + passwordRow + "` = ?");
             ps.setString(1, username);
             
             String decoded = new String(DatatypeConverter.parseBase64Binary(password));
@@ -45,7 +47,7 @@ public class Login {
             ps.setString(2, decoded);
             ResultSet result = ps.executeQuery();
             if(result.next()) {
-            	// Failed login code.
+            	// Successful login code.
             	System.out.print("Login successful!");
             }
             else {
@@ -53,7 +55,7 @@ public class Login {
             	System.out.print("Login failed!");
             }
         } catch (SQLException ex) {
-            System.out.print("Error! SQL exception.");
+            System.out.print("Error! SQL exception. This is on us! Sorry!");
         }
     }          
 	
